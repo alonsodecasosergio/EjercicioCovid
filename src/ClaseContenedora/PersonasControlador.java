@@ -1,6 +1,10 @@
 package ClaseContenedora;
 
+import java.security.Principal;
 import java.util.ArrayList;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import DAO.PersonasDAO;
 import Hilos.HiloFuncion;
@@ -16,7 +20,11 @@ public class PersonasControlador {
 	public static ArrayList<Enfermero> enfermeros = new ArrayList<Enfermero>();
 	public static ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
 	
+	private static Logger logger = LogManager.getLogger(Principal.class);
+	
 	public static void obtenerCollecionPersonas(Ciudades ciudad) {
+		
+ 		logger.info("Iniciando la separacion de personas segun su tipo");
 		
 		//OBTIENE LA COLECCION DE PERSONAS DE LA BASE DE DATOS
 		ArrayList<Personas> listaPersonas = (ArrayList<Personas>) PersonasDAO.obtenerPersonas(ciudad);
@@ -34,11 +42,15 @@ public class PersonasControlador {
 				
 				pacientes.add(pa);
 				
+				logger.info("Añadio un paciente " + p.getNombre());
+				
 			}else{
 				
 				Enfermero enf = new Enfermero(p.getId(),p.getId_ciudad(), p.getNombre(), p.getTipo(), p.isInfectado());
 				
 				enfermeros.add(enf);	
+				
+				logger.info("Añadio una enfermera " + p.getNombre());
 			}
 			
 		}
@@ -46,6 +58,8 @@ public class PersonasControlador {
 	
 	//SIMULACION DEL DIA
 	public static void simularDia() {		
+		
+		logger.info("Iniciando la simulacion del dia");
 		
 		//DEPENDIENDO DEL NUMERO ALEATORIO LOS PACIENTES ACCEDEN A UNOS METODOS U OTROS
 		for(int i = 0; i < pacientes.size(); i++) {
@@ -67,7 +81,6 @@ public class PersonasControlador {
 				pa.cogerTransporte();
 			}
 		}
-		
 		
 		//VACUNACION
 		Enfermero enf = enfermeros.get(enfermeros.size()-1);
@@ -112,6 +125,8 @@ public class PersonasControlador {
 		
 		//LA ANTIGUA COLECCION AHORA PASA A SER LA NUEVA COLECCION SOLO CON PACIENTES INFECTADOS
 		pacientes = pacientesInfectados;
+		
+		logger.info("La simulacion del dia ha terminado");
 		
 	}
 	

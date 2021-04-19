@@ -1,11 +1,24 @@
 import java.util.Scanner;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import ClaseContenedora.PersonasControlador;
 import ObjetosVO.Ciudades;
 
+
 public class Principal {
 	
+	private static Logger logger = LogManager.getLogger(Principal.class);
+	
 	public static void main(String[] args) {
+		
+		//CONFIGURACION LOGGER
+		String url = "C:\\Users\\Formacion\\eclipse-workspace\\Examen_SergioAlonso\\src\\resources\\log4j.properties";
+ 		PropertyConfigurator.configure(url);
+ 		
+ 		logger.info("Iniciacion del programa");
 		
 		//PIDE LA CIUDAD Y SE CREA
 		Scanner teclado = new Scanner(System.in);

@@ -1,17 +1,27 @@
 package DAO;
 
+import java.security.Principal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Types;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import BBDD.Conexion;
 import ObjetosVO.PersonasInforme;
 
 public class PersonasInformeDAO {
 	
+	private static Logger logger = LogManager.getLogger(Principal.class);
+	
 	//METODO QUE EJECUTARAN LOS HILOS PARA INSERTAR EN LA BASE DE DATOS
 	public synchronized static void insertarPersonasInformeDAO(PersonasInforme pi) {
+		
+		
+ 		logger.info("Exportando los datos a la base de datos");
+		
 		
 		try {
 			
@@ -41,6 +51,7 @@ public class PersonasInformeDAO {
 			
 			e.printStackTrace();
 			System.err.println("Error en la inserccion de la base de datos");
+			logger.error("Error al subir los nuevos datos de las personas a la base de datos");
 			
 		}
 		
@@ -50,6 +61,8 @@ public class PersonasInformeDAO {
 	public static int llamarFuncion() {
 		
 		int numeroInfectados = 0;
+		
+		logger.info("Llamando a la funcion");
 		
 		try {
 			
@@ -71,6 +84,8 @@ public class PersonasInformeDAO {
 			
 			e.printStackTrace();
 			System.err.println("Error en la inserccion de la base de datos");
+
+			logger.error("Error al obtener el resultado de la funcion llamada a la base de datos");
 			
 		}
 		
